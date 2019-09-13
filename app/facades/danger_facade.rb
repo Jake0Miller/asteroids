@@ -5,24 +5,21 @@ class DangerFacade
   end
 
   def range
-    start_date = @start_date.to_date.to_formatted_s(:long).split
-    start_date[1] = start_date[1].to_i.to_s + ','
-    end_date = @end_date.to_date.to_formatted_s(:long).split
-    end_date[1] = end_date[1].to_i.to_s + ','
+    "#{PrettyDate.make_pretty(@start_date)} - #{PrettyDate.make_pretty(@end_date)}"
+  end
 
-    "#{start_date.join(' ')} - #{end_date.join(' ')}"
+  def danger_days
+    dangerous_days.transform_values do |asteroids|
+      asteroids.find_all {|val| val[:is_potentially_hazardous_asteroid]}
+    end.max_by {|a| a[1].length}
   end
 
   def most_dangerous_day
-    dangerous_days.transform_values do |vals|
-      vals.count {|val| val[:is_potentially_hazardous_asteroid]}
-    end.max_by {|a| a[1]}[0].to_s.to_date.to_formatted_s(:long).split
+    PrettyDate.make_pretty(danger_days[0].to_s)
   end
 
-  def danger_day
-    max_day = most_dangerous_day
-    max_day[1] = max_day[1].to_i.to_s + ','
-    max_day.join(' ')
+  def danger_roids
+    danger_days[1].map {|roid| Roid.new(roid[:name], roid[:neo_reference_id])}
   end
 
   private
