@@ -1,5 +1,15 @@
 <h1>Most Dangerous Day</h1>
 
 <section class='range'>
-  <h2><%= "#{facade.start_date} - #{facade.end_date}" %></h2>
+  <h2><%= facade.range %></h2>
 </section>
+
+<section class='danger-day'>
+  <h2><%= facade.danger_day %></h2>
+</section>
+
+<% facade.danger_roids.each do |roid| %>
+  <section class='asteroid'>
+    
+  </section>
+<% end %>
