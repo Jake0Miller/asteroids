@@ -19,7 +19,7 @@ describe "GET /user" do
   end
 
   it "prevents access without a valid API key" do
-    api_key = create(:api_key)
+    create(:api_key)
 
     get "/api/v1/user?api_key=NOT_LEGIT"
 
