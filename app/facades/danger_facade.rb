@@ -5,7 +5,7 @@ class DangerFacade
   end
 
   def range
-    "#{PrettyDate.make_pretty(@start_date)} - #{PrettyDate.make_pretty(@end_date)}"
+    "#{@start_date.to_date.strftime("%B %-d, %Y")} - #{@end_date.to_date.strftime("%B %-d, %Y")}"
   end
 
   def danger_days
@@ -15,7 +15,7 @@ class DangerFacade
   end
 
   def most_dangerous_day
-    PrettyDate.make_pretty(danger_days[0].to_s)
+    danger_days[0].to_s.to_date.strftime("%B %-d, %Y")
   end
 
   def danger_roids
